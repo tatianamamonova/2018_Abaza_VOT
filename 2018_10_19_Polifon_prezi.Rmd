@@ -94,7 +94,7 @@ Examples of annotation in Praat
 
 # Data. List of words
 
-* Words with two syllables
+* Words with two syllables (61 words)
 
 * Phonectic context aCa
 
@@ -194,8 +194,6 @@ df %>%
   facet_wrap(~annotation, scales = "free_y")+
   theme(legend.position = "bottom")+
   labs(x = "", y = "duration (ms)")
-  
-
 ```
 
 # Absolute values of VOT
