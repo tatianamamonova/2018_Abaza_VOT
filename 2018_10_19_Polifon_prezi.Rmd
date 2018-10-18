@@ -112,7 +112,7 @@ Examples of annotation in Praat
 * List of words was generated automalically from dictionary with R script
 
 
-``````{r}
+```{r}
 df <- read_csv("data/single_stops_after_cleaning.txt")
 
 names(df) <- c("utterance", "file_name", "annotation", "duration_ms", "start", "end")
@@ -313,4 +313,3 @@ summary(fit_1)
 # Thank you!
 
  Tatiana Mamonova (t_mamonovaa@outlook.com)
-
