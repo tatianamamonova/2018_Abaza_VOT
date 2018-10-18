@@ -1,26 +1,52 @@
 ---
 title: "CD and VOT of voiceless consonants in Abaza"
-author: "Tanya Mamonova"
-date: "19 october 2018 <br> Polephon, MSU"
-output_dir: docs
-output: slidy_presentation
+author: "Tatiana Mamonova <br> NRU HSE"
+date: "19 october 2018 <br> Polefon, MSU"
+output_dir: docs 
+output: 
+  slidy_presentation: 
+    fig_height: 5
+    fig_width: 8
+    highlight: monochrome
+xaringan::moon_reader:
+  css: my_theme.css
+  lib_dir: libs
+  nature:
+    highlightStyle: github
+    highlightLines: true
+    countIncrementalSlides: false
+      
+editor_options: 
+  
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE,
+                      warning= FALSE,
+                      Encoding = "UTF-8")
 setwd("C:/Users/User/Desktop/stydy/azaza/repository2")
 library(tidyverse)
 library(ggplot2)
+library(rmarkdown)
+library(utf8)
 theme_set(theme_bw())
 ```
 
 
-## VOT
-In 1964, Lisker and Abramson: "the timing of glottal pulsing relative to supraglottal articulation would account for the great majority of homorganic consonantal distinctions traditionally said to depend on voicing, aspiration, "tensity", and the like" (Abramson and Whalen 2017).
 
+#VOT
 
-## 
-Considering a sample of languages, (Ladefoged & Cho 1999) show that VOT measurements do not directly depend on sound types and oppositions. Below is the sub-sample that has ejectives:
+In 1964, Lisker and Abramson: 
+
+>"the timing of glottal pulsing relative to supraglottal articulation would account for the great majority of homorganic consonantal distinctions traditionally said to depend on voicing, aspiration, "tensity", and the like" (Abramson and Whalen 2017).
+ 
+Abramson & Whalen (2017) argue that VOT is a cross-linguistically useful (and simple) measure, even if not a universal discriminator.
+
+# 
+
+Considering a sample of languages, (Ladefoged & Cho 1999) show that VOT measurements do not directly depend on sound types and oppositions. Below is the sub-sample that has ejectives: 
 
 ```{r}
 read_tsv("ladefoged_cho_without_abaza.txt") %>% 
@@ -30,11 +56,13 @@ read_tsv("ladefoged_cho_without_abaza.txt") %>%
   geom_col(show.legend = FALSE)+
   coord_flip()+
   labs(x = "", y = "mean VOT (ms)")+
-  theme(text = element_text(size=25))
+  theme(text = element_text(size=15))
 ```
 
-## Graph with Abaza speakers
-In our study, we want to consider how voiceless Abaza consonants perform in terms of temporal structuring (VOT etc.), comparing voiceless and ejective stops.
+# Ladefoged and Cho graph with data Abaza speakers
+
+In our study, we want to consider how Abaza consonants perform in terms of temporal structuring (VOT etc.), comparing voiceless and ejective stops.
+
 ```{r}
 read_tsv("ladefoged_cho.txt") %>% 
   mutate(x = factor(paste(lang, sound), levels = paste(lang, sound)),
@@ -44,17 +72,59 @@ read_tsv("ladefoged_cho.txt") %>%
   theme_bw()+
   coord_flip()+
   labs(x = "", y = "mean VOT (ms)")+
-  theme(text = element_text(size=25))
+  theme(text = element_text(size=15))
+  fig.pose = "R"
 ```
 
-## Data
 
-## Speakers
--4 female speakers
+# Data. Featuers of stops
 
-## Features of consonants
+* POA: labial, dental, velar, uvular
 
-## List of words
+* Manner: stops
+
+* Phonation type: voiceless, ejective
+
+# Data. Measurments
+
+* Previous vowel duration (v1)
+
+* Closure duration (cd)
+
+* Voice Onset time (vot)
+
+* Following vowel duration (v2)
+
+# Measurments
+
+Examples of annotation in Praat
+
+![Example of annotation](edj.png){#id .class width=570 height=500px}     ![Example of annotation](stooppraat.png){#id .class width=570 height=500px}
+
+  
+
+
+
+
+# Data. List of words
+
+* Words with two syllables
+
+* Phonectic context aCa
+
+* Stressed position not controlled
+
+* Eleciting words by a Russian translation
+
+* Three repetition followed by a carrier phrase
+
+* Four female speakers
+
+
+# List of words
+
+* List of words was generated automalically from dictionary with R script
+
 
 ``````{r}
 df <- read_csv("data/single_stops_after_cleaning.txt")
@@ -105,7 +175,7 @@ df %>%
 df %>% 
   mutate(speaker = str_extract(file_name, "D[0-9]")) ->
   df
-
+  
 df %>% 
   distinct(word, cons_ipa, cons_cyr, poa) %>% 
   count(cons_ipa, poa, sort = TRUE) %>% 
@@ -116,9 +186,18 @@ df %>%
   labs(x = "", y = "")
 
 ```
-## Analysis
 
-## Absolute values of CD
+
+# Analysis
+
+* Data were annotated in Praat
+
+* Extracted with Praat script
+
+* Analysed and visualized with R by G. Moroz
+
+# Absolute values of CD
+
 ```{r}
 df %>%
   filter(!str_detect(annotation, "v[12]"),
@@ -129,10 +208,12 @@ df %>%
   facet_wrap(~annotation, scales = "free_y")+
   theme(legend.position = "bottom")+
   labs(x = "", y = "duration (ms)")
+  
 
 ```
 
-## Absolute values of VOT
+# Absolute values of VOT
+
 ```{r}
 df %>%
   filter(!str_detect(annotation, "v[12]"),
@@ -142,11 +223,12 @@ df %>%
   geom_point()+
   facet_wrap(~annotation, scales = "free_y")+
   theme(legend.position = "bottom")+
-  labs(x = "", y = "duration (ms)")
+  labs(x = "", y = "duration (ms)")+
+  theme(text = element_text(size=15))
 
 ```
 
-## Absolute values of CD~VOT
+# Absolute values of CD~VOT
 
 ```{r}
 df %>% 
@@ -160,10 +242,10 @@ df %>%
   facet_grid(speaker~poa, scales = "free")+
   stat_ellipse()+
   theme(legend.position = "bottom")+
-  labs(x = "CD (ms)", y = "VOT (ms)", title = "Absolute values of CD and VOT")
+  labs(x = "CD (ms)", y = "VOT (ms)")
 ```
 
-##Relative values: CD / CD + VOT
+#Relative values: CD / CD + VOT
 
 ```{r}
 
@@ -178,12 +260,11 @@ df %>%
   geom_point()+
   facet_wrap(~speaker, scales = "free")+
   theme(legend.position = "bottom")+
-  labs(y = "relative value CD", x = "",
-                    caption = paste("Based on 4 speakers"))
+  labs(y = "relative value CD", x = "")
 
 ```
 
-##Relative values: VOT / CD + VOT
+#Relative values: VOT / CD + VOT
 
 ```{r}
 
@@ -198,12 +279,52 @@ df %>%
   geom_point()+
   facet_wrap(~speaker, scales = "free")+
   theme(legend.position = "bottom")+
-  labs(y = "relative value VOT", x = "",
-                    caption = paste("Based on 4 speakers"))
-
+  labs(y = "relative value VOT", x = "")
 
 ```
 
 
-##Выводы: от чего зависят CD и VOT
+# Generalized linear mixed model
+
+```{r}
+df %>% 
+  select(-stressed) %>% 
+  distinct() %>% 
+  filter(str_detect(annotation, "cd|vot"),
+         poa != "velar") %>% 
+  select(annotation, duration_ms, file_name, utterance, speaker, poa, phonation) %>%
+  spread(annotation, duration_ms) %>% 
+  mutate(phonation = factor(phonation),
+         cd = scale(cd),
+         vot=scale(vot)) ->
+  df_for_glm
+
+df_for_glm %>% 
+  ggplot(aes(cd, vot, color = phonation))+
+  geom_point()+
+  facet_grid(speaker~poa, scales = "free")+
+  stat_ellipse()+
+  theme(legend.position = "bottom")+
+  labs(x = "CD (ms)", y = "VOT (ms)")
+
+```
+
+
+# Generalized linear mixed model
+
+```{r}
+
+library(lme4)
+fit_1 <- glmer(phonation ~ cd+vot+poa+(1|speaker), 
+             data=df_for_glm,
+             family = "binomial",
+             glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=1000000)))
+
+summary(fit_1)
+```
+
+
+#Thank you!
+
+ Tatiana Mamonova (t_mamonovaa@outlook.com)
 
