@@ -2,16 +2,13 @@
 title: "CD and VOT of voiceless consonants in Abaza"
 author: "Tatiana Mamonova <br> NRU HSE"
 date: "19 october 2018 <br> Polefon, MSU"
-output_dir: docs 
 output: 
   slidy_presentation: 
     fig_height: 5
     fig_width: 8
     highlight: monochrome
-
-      
+    output_dir: docs
 editor_options: 
-  
   chunk_output_type: console
 ---
 
@@ -20,7 +17,7 @@ options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(echo = FALSE, message = FALSE,
                       warning= FALSE,
                       Encoding = "UTF-8")
-setwd("https://github.com/tatianamamonova/2018_Abaza_VOT")
+#setwd("https://github.com/tatianamamonova/2018_Abaza_VOT")
 library(tidyverse)
 library(ggplot2)
 library(rmarkdown)
@@ -30,7 +27,7 @@ theme_set(theme_bw())
 
 
 
-#VOT
+# VOT
 
 In 1964, Lisker and Abramson: 
 
@@ -94,11 +91,6 @@ read_tsv("ladefoged_cho.txt") %>%
 Examples of annotation in Praat
 
 ![Example of annotation](edj.png){#id .class width=570 height=500px}     ![Example of annotation](stooppraat.png){#id .class width=570 height=500px}
-
-  
-
-
-
 
 # Data. List of words
 
@@ -239,7 +231,7 @@ df %>%
   labs(x = "CD (ms)", y = "VOT (ms)")
 ```
 
-#Relative values: CD / CD + VOT
+# Relative values: CD / CD + VOT
 
 ```{r}
 
@@ -258,7 +250,7 @@ df %>%
 
 ```
 
-#Relative values: VOT / CD + VOT
+# Relative values: VOT / CD + VOT
 
 ```{r}
 
@@ -318,7 +310,7 @@ summary(fit_1)
 ```
 
 
-#Thank you!
+# Thank you!
 
  Tatiana Mamonova (t_mamonovaa@outlook.com)
 
